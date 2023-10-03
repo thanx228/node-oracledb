@@ -42,8 +42,7 @@ class ListTableWithSummary(tables.ListTable):
 
     def run(self):
         result = super().run()
-        summary = self.options.get('summary')
-        if summary:
+        if summary := self.options.get('summary'):
             table_node = result[0]
             table_node["summary"] = summary
         return result
@@ -59,14 +58,14 @@ class HTMLTranslator(sphinx.writers.html5.HTML5Translator):
 
         atts = {}
         classes = [cls.strip(' \t\n') \
-                for cls in self.settings.table_style.split(',')]
+                    for cls in self.settings.table_style.split(',')]
         classes.insert(0, "docutils")  # compat
 
         # set align-default if align not specified to give a default style
-        classes.append('align-%s' % node.get('align', 'default'))
+        classes.append(f"align-{node.get('align', 'default')}")
 
         if 'width' in node:
-            atts['style'] = 'width: %s' % node['width']
+            atts['style'] = f"width: {node['width']}"
         if 'summary' in node:
             atts['summary'] = node['summary']
         tag = self.starttag(node, 'table', CLASS=' '.join(classes), **atts)
