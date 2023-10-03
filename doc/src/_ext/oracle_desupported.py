@@ -45,7 +45,7 @@ class DriverDesupported(Directive):
         node.document = self.state.document
         node['type'] = self.name
         node['version'] = self.arguments[0]
-        text = 'Desupported in version {}.'.format(self.arguments[0])
+        text = f'Desupported in version {self.arguments[0]}.'
         classes = ['versionmodified', 'deprecated']
         para = nodes.paragraph('', '',
                                nodes.inline('', text, classes=classes),
